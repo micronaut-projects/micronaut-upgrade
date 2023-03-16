@@ -1,0 +1,3 @@
+=== 2.3.0 Breaking Changes
+
+The `micronaut.server.multipart.enabled` setting previously was not respected for the Netty server implementation. The setting is now honored and if explicitly set to false, all multipart requests will be rejected.
