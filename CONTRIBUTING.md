@@ -4,19 +4,19 @@ Sign the [Contributor License Agreement (CLA)](https://cla-assistant.io/micronau
 
 ## Finding Issues to Work on
 
-If you are interested in contributing to Micronaut and are looking for issues to work on, take a look at the issues tagged with [help wanted](https://github.com/micronaut-projects/micronaut-xxx/issues?q=is%3Aopen+is%3Aissue+label%3A%22status%3A+help+wanted%22).
+If you are interested in contributing to Micronaut and are looking for issues to work on, take a look at the issues tagged with [help wanted](https://github.com/micronaut-projects/micronaut-upgrade/issues?q=is%3Aopen+is%3Aissue+label%3A%22status%3A+help+wanted%22).
 
 ## JDK Setup
 
-Micronaut project-template currently requires JDK 8.
+Micronaut Upgrade currently requires JDK 17.
 
 ## IDE Setup
 
-Micronaut project-template can be imported into IntelliJ IDEA by opening the `build.gradle` file.
+Micronaut Upgrade can be imported into IntelliJ IDEA by opening the `build.gradle` file.
 
 ## Docker Setup
 
-Micronaut project-template tests currently require Docker to be installed.
+Micronaut Upgrade tests currently require Docker to be installed.
 
 ## Running Tests
 
@@ -59,19 +59,19 @@ Once you are satisfied with your changes:
 
 ## Merging a pull request
 
-Before we merge into a module's `master` branch a PR, we have to consider. 
+Before we merge into a module's `master` branch a PR, we have to consider.
 
 Can this PR be merged into a patch release (e.g. documentation fixes, bug fix, patch transitive dependency upgrade, breaking change due to security, Github actions sync, Micronaut Build Plugin upgrade)?
 
 Should this PR be merged into the next minor version of the module? For example, a new feature, a new module, or a minor transitive dependency upgrade.
 
-If the PR is going into the next minor version of the module, we need to release a patch version, and branch off `master` a new branch for the current minor module's version. If the `gradle.properties`'s `projectVersion` is 3.1.2-SNAPSHOT the branch should be named 3.1.x, and we push it to Github. If `master` contains only commits such as Github actions sync (no commits with benefits to users), we can branch off without doing a patch release. 
+If the PR is going into the next minor version of the module, we need to release a patch version, and branch off `master` a new branch for the current minor module's version. If the `gradle.properties`'s `projectVersion` is 3.1.2-SNAPSHOT the branch should be named 3.1.x, and we push it to Github. If `master` contains only commits such as Github actions sync (no commits with benefits to users), we can branch off without doing a patch release.
 
-When you merge a PR which will go into the next Module's minor. 
+When you merge a PR which will go into the next Module's minor.
 
-- Update `gradle.properties`'s `githubCoreBranch` to point to the next minor branch of Micronaut Core. 
-- Update `gradle.properties`'s `projectVersion` to the next minor snapshot. 
-- Upgrade the module to the latest version of Micronaut. 
+- Update `gradle.properties`'s `githubCoreBranch` to point to the next minor branch of Micronaut Core.
+- Update `gradle.properties`'s `projectVersion` to the next minor snapshot.
+- Upgrade the module to the latest version of Micronaut.
 
 ## Checkstyle
 
