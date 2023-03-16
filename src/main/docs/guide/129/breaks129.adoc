@@ -1,0 +1,1 @@
+* The data format was changed for multiline server sent event data payloads to conform to the specification. Previously multiline data did not have the required `data:` prefix on each line and now it does.
