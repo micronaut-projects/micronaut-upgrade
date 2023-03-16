@@ -1,0 +1,3 @@
+=== 3.9.0 Breaking Changes
+
+Since Micronaut Framework 3.9.0, CORS `allowed-origins` configuration does not support regular expressions to prevent accidentally exposing your API. You can use `allowed-origins-regex`, if you wish to support a regular expression.

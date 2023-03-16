@@ -1,1 +1,0 @@
-Kotlin suspend functions in controllers that return null now correctly respond with a 404. This behavior was inconsistent with other return types in previous versions and returned a 200 OK response.

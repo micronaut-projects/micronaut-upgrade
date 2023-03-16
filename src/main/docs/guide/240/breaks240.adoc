@@ -1,1 +1,0 @@
-Methods annotated with `@CircuitBreaker` that used the `includes` or `excludes` members were not functioning correctly. The circuit breaker was opening for exceptions that did not match the supplied exception types. This has been changed to correctly respect the includes and excludes.

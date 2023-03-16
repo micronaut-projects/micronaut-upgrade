@@ -1,0 +1,3 @@
+=== 2.5.0 Breaking Changes
+
+In previous versions of Micronaut it was possible to read the body of a request in a server filter under some conditions. Reading the request body in a filter has historically been inconsistent because the body is not read in many cases. In Micronaut 2.4, the body was read until the route arguments were satisfied, and then the server filters were executed. This lead to issues with memory leaks in some cases and is inefficient because a filter may skip route execution altogether by not proceeding the chain, thus the body did not need to be read. In Micronaut 2.5 the body will not be read until after filters are executed. This may lead to cases where the body was available in a filter and is no longer available.
