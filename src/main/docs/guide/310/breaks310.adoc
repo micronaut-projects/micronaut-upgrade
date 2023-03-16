@@ -1,0 +1,1 @@
+Retrieving the port from the Netty embedded server is no longer supported if the server is configured to bind to a random port and the server has not been started.

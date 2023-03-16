@@ -1,7 +1,41 @@
-introduction:
-  title: Introduction
-releaseHistory: Release History
-quickStart:
-  title: Quick Start
+390:
+  title: Micronaut Framework 3.9.0
+  breaks390: 3.9.0 Breaking Changes
+387:
+  title: Micronaut Framework 3.8.7
+  breaks387: 3.8.7 Breaking Changes
+380:
+  title: Micronaut Framework 3.8.0
+  whatsnew380: What's new with 3.8.0
+370:
+  title: Micronaut Framework 3.7.0
+  whatsnew370: What's new with 3.7.0
+360:
+  title: Micronaut Framework 3.6.0
+  whatsnew360: What's new with 3.6.0
+350:
+  title: Micronaut Framework 3.5.0
+  whatsnew350: What's new with 3.5.0
+340:
+  title: Micronaut Framework 3.4.0
+  whatsnew340: What's new with 3.4.0
+330:
+  title: Micronaut Framework 3.3.0
+  whatsnew330: What's new with 3.3.0
+  breaks330: 3.3.0 Breaking Changes
+324:
+  title: Micronaut Framework 3.2.4
+  breaks324: 3.2.4 Breaking Changes
+320:
+  title: Micronaut Framework 3.2.0
+  whatsnew320: What's new with 3.2.0
+  breaks320: 3.2.0 Breaking Changes
+310:
+  title: Micronaut Framework 3.1.0
+  whatsnew310: What's new with 3.1.0
+  breaks310: 3.1.0 Breaking Changes
+300:
+  title: Micronaut Framework 3.0.0
+  whatsnew300: What's new with 3.0.0
+  breaks300: 3.0.0 Breaking Changes
 repository: Repository
-
