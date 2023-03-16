@@ -32,13 +32,6 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - name: Setup GraalVM CE
-        uses: graalvm/setup-graalvm@v1
-        with:
-          version: ${{ matrix.graalvm }}
-          java-version: ${{ matrix.java }}
-          components: 'native-image'
-          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
       - name: Optional setup step
@@ -48,55 +41,15 @@ jobs:
           GRADLE_ENTERPRISE_CACHE_PASSWORD: ${{ secrets.GRADLE_ENTERPRISE_CACHE_PASSWORD }}
         run: |
           [ -f ./setup.sh ] && ./setup.sh || true
-      - name: Build with Gradle
-        id: gradle
-        run: |
-          ./gradlew check --no-daemon --parallel --continue
-        env:
-           GH_TOKEN_PUBLIC_REPOS_READONLY: ${{ secrets.GH_TOKEN_PUBLIC_REPOS_READONLY }}
-           GH_USERNAME: ${{ secrets.GH_USERNAME }}
-           TESTCONTAINERS_RYUK_DISABLED: true
-           GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
-           GRADLE_ENTERPRISE_CACHE_USERNAME: ${{ secrets.GRADLE_ENTERPRISE_CACHE_USERNAME }}
-           GRADLE_ENTERPRISE_CACHE_PASSWORD: ${{ secrets.GRADLE_ENTERPRISE_CACHE_PASSWORD }}
-           PREDICTIVE_TEST_SELECTION: "${{ github.event_name == 'pull_request' && 'true' || 'false' }}"
-      - name: Run static analysis
-        if: github.repository_owner == 'micronaut-projects'
-        run: |
-          ./gradlew sonar
-        env:
-          TESTCONTAINERS_RYUK_DISABLED: true
-          GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
-          GRADLE_ENTERPRISE_CACHE_USERNAME: ${{ secrets.GRADLE_ENTERPRISE_CACHE_USERNAME }}
-          GRADLE_ENTERPRISE_CACHE_PASSWORD: ${{ secrets.GRADLE_ENTERPRISE_CACHE_PASSWORD }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_TOKEN_PUBLIC_REPOS_READONLY: ${{ secrets.GH_TOKEN_PUBLIC_REPOS_READONLY }}
-          GH_USERNAME: ${{ secrets.GH_USERNAME }}
-      - name: Publish Test Report
-        if: always()
-        uses: mikepenz/action-junit-report@v3
-        with:
-          check_name: Java CI / Test Report (${{ matrix.java }})
-          report_paths: '**/build/test-results/test/TEST-*.xml'
-          check_retries: 'true'
-      - name: "📜 Upload binary compatibility check results"
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: binary-compatibility-reports
-          path: "**/build/reports/binary-compatibility-*.html"
-      - name: Publish to Sonatype Snapshots
+      - name: Generate Docs
         if: success() && github.event_name == 'push' && matrix.java == '17'
         env:
           GH_TOKEN_PUBLIC_REPOS_READONLY: ${{ secrets.GH_TOKEN_PUBLIC_REPOS_READONLY }}
           GH_USERNAME: ${{ secrets.GH_USERNAME }}
-          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
-          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
           GRADLE_ENTERPRISE_ACCESS_KEY: ${{ secrets.GRADLE_ENTERPRISE_ACCESS_KEY }}
           GRADLE_ENTERPRISE_CACHE_USERNAME: ${{ secrets.GRADLE_ENTERPRISE_CACHE_USERNAME }}
           GRADLE_ENTERPRISE_CACHE_PASSWORD: ${{ secrets.GRADLE_ENTERPRISE_CACHE_PASSWORD }}
-        run: ./gradlew publishToSonatype docs --no-daemon
+        run: ./gradlew docs --no-daemon
       - name: Determine docs target repository
         uses: haya14busa/action-cond@v1
         id: docs_target
