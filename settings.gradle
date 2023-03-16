@@ -17,5 +17,6 @@ include 'project-template-bom'
 enableFeaturePreview 'TYPESAFE_PROJECT_ACCESSORS'
 
 micronautBuild {
+    useStandardizedProjectNames=true
     importMicronautCatalog()
 }
