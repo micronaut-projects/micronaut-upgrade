@@ -2,6 +2,18 @@
 :includedir: src/docs/asciidoc
 :sectnums!:
 
+:whatsNew: https://docs.micronaut.io/4.0.0-M2/guide/index.html#whatsNew
+:breaking: https://docs.micronaut.io/4.0.0-M2/guide/index.html#_core_changes
+
+== Micronaut Framework 4.0.0
+
+=== Upgrade to Micronaut Framework 4.0
+
+https://micronaut.io/2023/05/09/upgrade-to-micronaut-framework-4-0-0/[Upgrade to Micronaut Framework 4 guide].
+
+=== Breaking Changes
+You can find more details in the link: {whatsNew}[_What's new_] and {breaking}[_breaking changes_] sections of the Micronaut Framework 4.0.
+
 == Micronaut Framework 3.9.0
 
 include::{includedir}/breaks390.adoc[]
