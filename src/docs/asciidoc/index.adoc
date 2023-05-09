@@ -54,6 +54,8 @@ include::{includedir}/breaks310.adoc[]
 
 == Micronaut Framework 3.0.0
 
+include::{includedir}/upgradefrom2to3.adoc[]
+
 include::{includedir}/whatsnew300.adoc[]
 
 include::{includedir}/breaks300.adoc[]
