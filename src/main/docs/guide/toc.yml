@@ -1,3 +1,6 @@
+400:
+  title: Micronaut Framework 4.0.0
+  openrewrite: Upgrade with OpenRewrite
 390:
   title: Micronaut Framework 3.9.0
   breaks390: 3.9.0 Breaking Changes

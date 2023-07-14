@@ -1,0 +1,2 @@
+Upgrade your Micronaut applications with the https://micronaut.io/2023/07/14/upgrade-to-micronaut-framework-4-with-openrewrite-and-gradle/[OpenRewrite integration for Gradle] and https://micronaut.io/2023/07/14/upgrade-to-micronaut-framework-4-with-openrewrite-and-maven/[Maven].
+
