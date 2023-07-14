@@ -1,0 +1,1 @@
+Read about https://micronaut.io/2023/07/14/micronaut-framework-4-0-0-released/)[Micronaut Framework 4.0.0 Release] and how to https://micronaut.io/2023/05/09/upgrade-to-micronaut-framework-4-0-0/[upgrade to Micronaut Framework 4].
