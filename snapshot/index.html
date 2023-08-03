@@ -47,6 +47,12 @@
                         <h1 class="title title_large first-word-bold first-word-break">Table of Contents</h1>
                         <div class="underline"></div>
                         <ul class="sectlevel1">
+<li><a href="#_micronaut_framework_4_0_0">Micronaut Framework 4.0.0</a>
+<ul class="sectlevel2">
+<li><a href="#_upgrade_to_micronaut_framework_4_0">Upgrade to Micronaut Framework 4.0</a></li>
+<li><a href="#_breaking_changes">Breaking Changes</a></li>
+</ul>
+</li>
 <li><a href="#_micronaut_framework_3_9_0">Micronaut Framework 3.9.0</a>
 <ul class="sectlevel2">
 <li><a href="#_3_9_0_breaking_changes">3.9.0 Breaking Changes</a></li>
@@ -107,6 +113,7 @@
 </li>
 <li><a href="#_micronaut_framework_3_0_0">Micronaut Framework 3.0.0</a>
 <ul class="sectlevel2">
+<li><a href="#_upgrading_from_micronaut_framework_2_0_to_3_0">Upgrading from Micronaut Framework 2.0 to 3.0</a></li>
 <li><a href="#_whats_new_with_3_0_0">What&#8217;s new with 3.0.0</a></li>
 <li><a href="#_3_0_0_breaking_changes">3.0.0 Breaking Changes</a></li>
 </ul>
@@ -187,6 +194,26 @@
 <div class="sect1">
 <div class="sectionbody">
 
+<div class="sect2">
+<h3 id="_upgrade_to_micronaut_framework_4_0"><a class="anchor" href="#_upgrade_to_micronaut_framework_4_0"></a>Upgrade to Micronaut Framework 4.0</h3>
+<div class="paragraph">
+<p><a href="https://micronaut.io/2023/05/09/upgrade-to-micronaut-framework-4-0-0/">Upgrade to Micronaut Framework 4 guide</a>.</p>
+</div>
+<div class="paragraph">
+<p>Upgrade your Micronaut applications with the <a href="https://micronaut.io/2023/07/14/upgrade-to-micronaut-framework-4-with-openrewrite-and-gradle/">OpenRewrite integration for Gradle</a> and <a href="https://micronaut.io/2023/07/14/upgrade-to-micronaut-framework-4-with-openrewrite-and-maven/">Maven</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_breaking_changes"><a class="anchor" href="#_breaking_changes"></a>Breaking Changes</h3>
+<div class="paragraph">
+<p>You can find more details in the link: <a href="https://docs.micronaut.io/4.0.0/guide/index.html#whatsNew"><em>What&#8217;s new</em></a> and <a href="https://docs.micronaut.io/4.0.0/guide/index.html#_core_changes"><em>breaking changes</em></a> sections of the Micronaut Framework 4.0.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_micronaut_framework_3_9_0"><a class="anchor" href="#_micronaut_framework_3_9_0"></a>Micronaut Framework 3.9.0</h2>
+<div class="sectionbody">
 <div class="sect2">
 <h3 id="_3_9_0_breaking_changes"><a class="anchor" href="#_3_9_0_breaking_changes"></a>3.9.0 Breaking Changes</h3>
 <div class="paragraph">
@@ -1361,6 +1388,266 @@ The same applies for the <code>create</code> method that accepts an additional <
 <h2 id="_micronaut_framework_3_0_0"><a class="anchor" href="#_micronaut_framework_3_0_0"></a>Micronaut Framework 3.0.0</h2>
 <div class="sectionbody">
 <div class="sect2">
+<h3 id="_upgrading_from_micronaut_framework_2_0_to_3_0"><a class="anchor" href="#_upgrading_from_micronaut_framework_2_0_to_3_0"></a>Upgrading from Micronaut Framework 2.0 to 3.0</h3>
+<div class="paragraph">
+<p>This section covers the steps required to upgrade a Micronaut framework 2.x application to Micronaut framework 3.0.0.</p>
+</div>
+<div class="paragraph">
+<p>The sections below go into more detail, but at a high level the process generally involves:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>updating versions</p>
+</li>
+<li>
+<p>updating annotations</p>
+</li>
+<li>
+<p>choosing a Reactive implementation</p>
+</li>
+<li>
+<p>adjusting code affected by breaking changes</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Typically, upgrading should be straightforward, but it&#8217;s possible to save yourself some work with <a href="https://docs.openrewrite.org/" target="_blank" rel="noopener">OpenRewrite</a>, an automated refactoring tool that you can use to make many of the required upgrade changes.</p>
+</div>
+<div class="sect3">
+<h4 id="_automating_upgrades_with_openrewrite"><a class="anchor" href="#_automating_upgrades_with_openrewrite"></a>Automating Upgrades with OpenRewrite</h4>
+<div class="paragraph">
+<p>OpenRewrite works with Micronaut applications written in Java, but OpenRewrite doesn&#8217;t currently support Kotlin or Groovy.
+Like any automated tool it does much of the work for you, but be sure to review the resulting changes and manually make any changes that aren&#8217;t supported by OpenRewrite, for example converting from RxJava2 to Reactor.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+If you will be using OpenRewrite, don&#8217;t make any upgrade changes yet that would cause your application not to compile, for example updating the Micronaut version to 3.x.
+This would cause application classes that use <code>javax.inject</code> annotations like <code>@Singleton</code> or RxJava2 classes like <code>io.reactivex.Flowable</code> to not compile since those dependencies are no longer included by default.
+Instead, use OpenRewrite to do the initial work and just do the steps yourself that aren&#8217;t possible or practical to automate.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Adding OpenRewrite support to your build is easy, it just requires adding the Gradle or Maven plugin and configuring the plugin to use the Micronaut upgrade recipe.</p>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://micronaut.io/launch?features=openrewrite&amp;lang=JAVA&amp;build=GRADLE&amp;activity=diff" target="_blank" rel="noopener">Gradle feature diff</a> or the <a href="https://micronaut.io/launch?features=openrewrite&amp;lang=JAVA&amp;build=MAVEN&amp;activity=diff" target="_blank" rel="noopener">Maven feature diff</a> to see the required build script changes.</p>
+</div>
+<div class="paragraph">
+<p>Once you&#8217;ve made the build script changes, you can "dry-run" the Micronaut upgrade recipe to see what changes would be made.</p>
+</div>
+<div class="paragraph">
+<p>For Gradle, run</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ ./gradlew rewriteDryRun</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and view the diff report generated in <code>build/reports/rewrite/rewrite.patch</code></p>
+</div>
+<div class="paragraph">
+<p>and for Maven, run</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ ./mvnw rewrite:dryRun</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and view the diff report generated in <code>target/site/rewrite/rewrite.patch</code>.</p>
+</div>
+<div class="paragraph">
+<p>Then you can run the recipe for real, letting OpenRewrite update your code.</p>
+</div>
+<div class="paragraph">
+<p>For Gradle, run</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ ./gradlew rewriteRun</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and for Maven, run</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ ./mvnw rewrite:run</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Once the changes have been made, you could remove the plugin, but it&#8217;s fine to leave it since OpenRewrite doesn&#8217;t run automatically, only when you run one of its commands.
+And there are many more recipes available beyond the Micronaut upgrade recipe that you might want to include to automate other code changes.</p>
+</div>
+<div class="paragraph">
+<p>The plugin includes another command to list all recipes currently in the classpath (in this case the core recipes plus those added by the <code>rewrite-micronaut</code> module).</p>
+</div>
+<div class="paragraph">
+<p>For Gradle, run</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ ./gradlew rewriteDiscover</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and for Maven, run</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ ./mvnw rewrite:discover</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and the available recipes and styles will be output to the console. Check out the <a href="https://docs.openrewrite.org/">OpenRewrite documentation</a> for more information and to see the many other available recipes available.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_version_update"><a class="anchor" href="#_version_update"></a>Version Update</h4>
+<div class="paragraph">
+<p>If you use Gradle, update the <code>micronautVersion</code> property in <code>gradle.properties</code>, e.g.</p>
+</div>
+<div class="listingblock">
+<div class="title">gradle.properties</div>
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="properties" class="language-properties hljs">micronautVersion={version}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you use Maven, update the parent POM version and <code>micronaut.version</code> property in <code>pom.xml</code>, e.g.</p>
+</div>
+<div class="listingblock">
+<div class="title">pom.xml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="xml" class="language-xml hljs">&lt;parent&gt;
+  &lt;groupId&gt;io.micronaut&lt;/groupId&gt;
+  &lt;artifactId&gt;micronaut-parent&lt;/artifactId&gt;
+  &lt;version&gt;{version}&lt;/version&gt;
+&lt;/parent&gt;
+
+&lt;properties&gt;
+  ...
+  &lt;micronaut.version&gt;{version}&lt;/micronaut.version&gt;
+  ...
+&lt;/properties&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_build_plugin_update"><a class="anchor" href="#_build_plugin_update"></a>Build Plugin Update</h4>
+<div class="paragraph">
+<p>If you use the <a href="https://micronaut-projects.github.io/micronaut-gradle-plugin/latest/">Micronaut Gradle plugin</a> update to the <a href="https://github.com/micronaut-projects/micronaut-gradle-plugin/releases/latest">latest version</a>.</p>
+</div>
+<div class="paragraph">
+<p>For Maven users the plugin version is updated automatically when you update the Micronaut version.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_inject_annotations"><a class="anchor" href="#_inject_annotations"></a>Inject Annotations</h4>
+<div class="paragraph">
+<p>The <code>javax.inject</code> annotations are no longer a transitive dependency. The Micronaut framework now ships with the Jakarta inject annotations. Either replace all <code>javax.inject</code> imports with <code>jakarta.inject</code>, or add a dependency on <code>javax-inject</code> to continue using the older annotations:</p>
+</div>
+<div class="paragraph">
+<p>dependency:javax.inject:javax.inject:1[]</p>
+</div>
+<div class="paragraph">
+<p>Any code that relied on the <code>javax.inject</code> annotations being present in the annotation metadata will still work as expected, however any code that interacts with them must be changed to no longer reference the annotation classes themselves. Static variables in the <a href="{api}/io/micronaut/core/annotation/AnnotationUtil.html">AnnotationUtil</a> class (e.g. <code>AnnotationUtil.INJECT</code>, <code>AnnotationUtil.SINGLETON</code>, etc.) should be used in place of the annotation classes when working with annotation metadata.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_nullability_annotations"><a class="anchor" href="#_nullability_annotations"></a>Nullability Annotations</h4>
+<div class="paragraph">
+<p>The Micronaut framework now only comes with its own set of annotations to declare nullability. The findbugs, javax, and jetbrains annotations are all still supported, however you must add a dependency to use them. Either switch to the Micronaut ann:core.annotation.Nullable[] / ann:core.annotation.NonNull[] annotations or add a dependency for the annotation library you wish to use.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_rxjava2"><a class="anchor" href="#_rxjava2"></a>RxJava2</h4>
+<div class="paragraph">
+<p>The Micronaut framework no longer ships any reactive implementation as a default in any of our modules or core libraries. Upgrading to Micronaut 3 requires choosing which reactive streams implementation to use, and then adding the relevant dependency.</p>
+</div>
+<div class="paragraph">
+<p>For those already using RxJava3 or Project Reactor, there should be no changes required to upgrade to the Micronaut framework 3. If you use RxJava2 and wish to continue using it, you must add a dependency:</p>
+</div>
+<div class="paragraph">
+<p>dependency:io.micronaut.rxjava2:micronaut-rxjava2[gradleScope="implementation"]</p>
+</div>
+<div class="paragraph">
+<p>In addition, if any of the <code>Rx</code> HTTP client interfaces were used, a dependency must be added and the imports must be updated.</p>
+</div>
+<div class="paragraph">
+<p>dependency:io.micronaut.rxjava2:micronaut-rxjava2-http-client[gradleScope="implementation"]</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. RxJava2 HTTP Client Imports</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Old</th>
+<th class="tableblock halign-left valign-top">New</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.micronaut.http.client.RxHttpClient</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.micronaut.rxjava2.http.client.RxHttpClient</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.micronaut.http.client.RxProxyHttpClient</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.micronaut.rxjava2.http.client.proxy.RxProxyHttpClient</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.micronaut.http.client.RxStreamingHttpClient</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.micronaut.rxjava2.http.client.RxStreamingHttpClient</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.micronaut.http.client.sse.RxSseClient</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.micronaut.rxjava2.http.client.sse.RxSseClient</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.micronaut.websocket.RxWebSocketClient</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">io.micronaut.rxjava2.http.client.websockets.RxWebSocketClient</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>If the Netty based server implementation is being used, an additional dependency must be added:</p>
+</div>
+<div class="paragraph">
+<p>dependency:io.micronaut.rxjava2:micronaut-rxjava2-http-server-netty[gradleScope="implementation"]</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+We recommend switching to Project Reactor as that is the implementation used internally by Micronaut. Adding a dependency to RxJava2 will result in both implementations in the runtime classpath of your application.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_environment_endpoint_2"><a class="anchor" href="#_environment_endpoint_2"></a>Environment endpoint</h4>
+<div class="paragraph">
+<p>As of 3.3.0, the <a href="#environmentEndpoint">environmental endpoint</a> is now disabled by default, please see the <a href="#breaks">breaking changes</a> for how to restore functionality.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_whats_new_with_3_0_0"><a class="anchor" href="#_whats_new_with_3_0_0"></a>What&#8217;s new with 3.0.0</h3>
 <div class="sect3">
 <h4 id="_core_features_2"><a class="anchor" href="#_core_features_2"></a>Core Features</h4>
@@ -1846,7 +2133,7 @@ This applies to types in the case where one extends another, and methods in the 
 <p>The following table summarizes the core Micronaut annotations and which are inherited and which are not:</p>
 </div>
 <table class="tableblock frame-topbot grid-all" style="width: 80%;">
-<caption class="title">Table 1. Annotation Inheritance in Micronaut 3.x and above</caption>
+<caption class="title">Table 2. Annotation Inheritance in Micronaut 3.x and above</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2392,7 +2679,7 @@ This applies to types in the case where one extends another, and methods in the 
 </div>
 </div>
 <div class="sect4">
-<h5 id="_inject_annotations"><a class="anchor" href="#_inject_annotations"></a>Inject Annotations</h5>
+<h5 id="_inject_annotations_2"><a class="anchor" href="#_inject_annotations_2"></a>Inject Annotations</h5>
 <div class="paragraph">
 <p>Micronaut now provides the <code>jakarta.inject</code> annotations as a transitive dependency instead of the <code>javax.inject</code> annotations.
 To continue using the old annotations, add the following dependency.</p>
@@ -2707,7 +2994,7 @@ If you need to declare a class to be accessed by reflection, use the <code>@Refl
 <p>Two exception handlers that were in <code>micronaut-server-netty</code> have now been moved to <code>micronaut-server</code> since they were not specific to Netty. Their package has also changed as a result.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. Package changes</caption>
+<caption class="title">Table 3. Package changes</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -5131,7 +5418,7 @@ String login(BasicAuth basicAuth) {
 </div>
 </div>
 <div class="sect3">
-<h4 id="_environment_endpoint_2"><a class="anchor" href="#_environment_endpoint_2"></a>Environment Endpoint</h4>
+<h4 id="_environment_endpoint_3"><a class="anchor" href="#_environment_endpoint_3"></a>Environment Endpoint</h4>
 <div class="paragraph">
 <p>This version includes a new <code>/env</code> endpoint with information about the environment and its property sources See the <a href="#environmentEndpoint">documentation</a> for more information.</p>
 </div>
