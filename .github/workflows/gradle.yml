@@ -41,6 +41,11 @@ jobs:
           GRADLE_ENTERPRISE_CACHE_PASSWORD: ${{ secrets.GRADLE_ENTERPRISE_CACHE_PASSWORD }}
         run: |
           [ -f ./setup.sh ] && ./setup.sh || true
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: matrix.java
+          distribution: 'temurin'
       - name: Generate Docs
         if: success() && github.event_name == 'push' && matrix.java == '17'
         env:
