@@ -11,9 +11,7 @@ Micronaut upgrade
 
 ## Documentation
 
-See the [Documentation](https://micronaut-projects.github.io/micronaut-upgrade/latest/guide/) for more information.
-
-See the [Snapshot Documentation](https://micronaut-projects.github.io/micronaut-upgrade/snapshot/guide/) for the current development docs.
+See the [Documentation](https://micronaut-projects.github.io/micronaut-upgrade/snapshot/guide/) for more information.
 
 <!-- ## Examples
 
