@@ -49,7 +49,7 @@ snippet::io.micronaut.docs.config.itfce.EngineConfig[tags="imports,class",indent
 
 Log levels can now be configured via properties defined in `application.yml` (and environment variables) with the `log.level` prefix:
 
-[source,yaml]
+[configuration]
 ----
 logger:
     levels:
